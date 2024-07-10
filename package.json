@@ -1,0 +1,26 @@
+{
+  "name": "todo-list",
+  "version": "1.0.0",
+  "description": "todo list lmao",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/chinX22/Todo-List.git"
+  },
+  "author": "chinX22",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chinX22/Todo-List/issues"
+  },
+  "homepage": "https://github.com/chinX22/Todo-List#readme",
+  "devDependencies": {
+    "css-loader": "^7.1.2",
+    "html-webpack-plugin": "^5.6.0",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.92.1",
+    "webpack-cli": "^5.1.4"
+  }
+}
