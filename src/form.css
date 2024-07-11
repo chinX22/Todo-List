@@ -1,5 +1,5 @@
-dialog{
-    width: clamp(200px, 33vw, 1500px);
+form, dialog{
+    width: clamp(500px, 33vw, 1500px);
 }
 
 form{
@@ -35,7 +35,10 @@ form{
         grid-area: 6 / 1 / 7 / 3;
     }
     #submit{
-        grid-area: -3 / 1 / -2 / 3;
+        grid-area: -3 / 1 / -2 / 2;
+    }
+    #submit{
+        grid-area: -3 / 2 / -2 / 3;
     }
     #cancel{
         grid-area: -2 / 1 / -1 / 3;

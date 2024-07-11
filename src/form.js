@@ -1,10 +1,14 @@
 import './form.css';
-import {create_task} from './task'
+import {build_projects} from "./projects.js";
+import {Task, Project} from './objects'
+import {add_task_storage, new_project_storage, print_storage, task_to_project, add_project_storage} from './storage';
 const container = document.getElementById("container");
 
-function make_form(){
+function make_task(){
     let myModal = document.createElement("dialog");
+    myModal.id = "taskModal";
     let myForm = document.createElement("form");
+    myForm.id = "theForm";
     myForm.setAttribute('method',  'dialog');
 
     let m = [["name",'text', "Title: "], 
@@ -33,6 +37,8 @@ function make_form(){
         step_adder()
     });
     myForm.appendChild(addSteps);
+    container.appendChild(myModal);
+    myModal.showModal();
 
     
     function step_adder(){
@@ -51,10 +57,32 @@ function make_form(){
         }
     }
 
+
+    let add = document.createElement('button');
+    add.textContent = "Add and make another";
+    add.id = "add";
+    add.addEventListener("click", (event) => {
+        event.preventDefault();
+        // console.log(typeof myForm);
+        // document.getElementById("theForm").submit();
+        makesTask();
+        myForm.reset();
+    })
+    myForm.appendChild(add);
+
     let submit = document.createElement('button');
-    submit.textContent = "Create";
+    submit.textContent = "Add";
     submit.id = "submit";
-    submit.setAttribute('type', 'submit');
+    //submit.setAttribute('type', 'submit');
+    submit.addEventListener("click", (event) => {
+        event.preventDefault();
+        // console.log(typeof myForm);
+        // document.getElementById("theForm").submit();
+        makesTask();
+        close_form();
+        add_project_storage();
+        build_projects();
+    })
     myForm.appendChild(submit);
 
 
@@ -64,19 +92,65 @@ function make_form(){
     cancel.addEventListener('click', () => close_form());
     myForm.appendChild(cancel);
     
-    myForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        create_task();
-    })
+    function makesTask(){
+        let newTask = Task();
+        add_task_storage(newTask);
+        task_to_project(newTask);
+        print_storage();
+    }
+    // myForm.addEventListener("submit", (event) => {
+    //     event.preventDefault();
+    //     let newTask = Task();
+    //     add_task_storage(newTask);
+    //     task_to_project(newTask);
+    //     print_storage();
+    // })
 
     myModal.appendChild(myForm);
 
     container.appendChild(myModal);
 }
 
+function make_project (){
+    let myModal = document.createElement("dialog");
+    myModal.id = "projectModal";
+    let myForm = document.createElement("form");
+    myForm.setAttribute('method',  'dialog');
+
+    let label = document.createElement("label");
+    label.textContent = "Name: ";
+    let input = document.createElement("input");
+    input.id = "name";
+    label.setAttribute("for", "name");
+    input.setAttribute('type', "text");
+    myForm.appendChild(input);
+    myForm.appendChild(label);
+
+    let cancel = document.createElement('button');
+    cancel.textContent = "Cancel";
+    cancel.id = "cancel";
+    cancel.addEventListener('click', () => close_form());
+    myForm.appendChild(cancel);
+    myModal.appendChild(myForm);
+
+    let newTaskButton = document.createElement('button');
+    newTaskButton.textContent = "New Task";
+    myForm.appendChild(newTaskButton);
+    newTaskButton.addEventListener("click", (event) => {
+        event.preventDefault();
+        let newPro = Project();
+        new_project_storage(newPro);
+        close_form();
+        make_task();
+    });
+    container.appendChild(myModal);
+    myModal.showModal();
+}
+
 function close_form(){
     let myModal = document.querySelector("dialog");
+    console.log("closed!");
     myModal.remove();
 }
 
-export {make_form, close_form};
+export {make_task, make_project, close_form};
