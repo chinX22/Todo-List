@@ -3,14 +3,14 @@ import {parseISO, format, compareAsc,
  } from 'date-fns';
 
 function build_upcoming(){
-    let bigDiv = document.createElement("div");
-    document.getElementById("container").appendChild(bigDiv);
-    let arr = order_date(JSON.parse(localStorage.getItem("task_list")));
-    for (let data of arr){
-        let date = document.createElement("p");
-        date.textContent = format(data, 'MMMM do, yyyy h:mm a');
-        bigDiv.appendChild(date);
-    }
+    // let bigDiv = document.createElement("div");
+    // document.getElementById("container").appendChild(bigDiv);
+    // let arr = order_date(JSON.parse(localStorage.getItem("task_list")));
+    // for (let data of arr){
+    //     let date = document.createElement("p");
+    //     date.textContent = format(data, 'MMMM do, yyyy h:mm a');
+    //     bigDiv.appendChild(date);
+    // }
 
 }
 

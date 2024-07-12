@@ -13,15 +13,29 @@ function delete_project_button(project){
 }
 
 function delete_project(pro){
-    let arr = JSON.parse(localStorage.getItem("project_list"));
-    for (let i = 0; i < arr.length; i++){
-        if(JSON.stringify(arr[i]) === JSON.stringify(pro)){
-            arr = arr.splice(i, i);
-            localStorage.setItem("project_list", JSON.stringify(arr));
+    let arr_p = JSON.parse(localStorage.getItem("project_list"));
+    for (let i = 0; i < arr_p.length; i++){
+        if(JSON.stringify(arr_p[i]) === JSON.stringify(pro)){
+            arr_p.splice(i, 1);
+            localStorage.setItem("project_list", JSON.stringify(arr_p));
             build_projects();
             break;
         }
     }
+
+    
+
+    let arr_t = pro["tasks"];
+    let taskList = JSON.parse(localStorage.getItem("task_list"));
+    // console.log(arr_t);
+    for (let task of arr_t){
+         for (let i = 0; i < taskList.length; i++){
+            if(JSON.stringify(taskList[i]) === JSON.stringify(task)){
+                taskList.splice(i, 1);
+            }
+        }
+    }
+     localStorage.setItem("task_list", JSON.stringify(taskList));
 }
 
 function delete_task_button(){
@@ -61,8 +75,40 @@ function delete_task(task, project, taskList){
     return project;
 }
 
-function edit_task_button(task){
+function edit_project(project, myDiv, taskList, projects){
+    myDiv.appendChild(delete_project_button(project));
+    let taskDiv = myDiv.querySelector(".task-list");
+    taskDiv.replaceChildren();
+    for (let i = 0 ; i < project["tasks"].length; i++){
+        let div = document.createElement("div");
+        div.className = "task-line";
+        let Title2 = document.createElement('h3');
+        Title2.textContent = project["tasks"][i]["name"];
+        Title2.className = "task-title";
+        div.appendChild(Title2);
 
+        let deleteButton = delete_task_button();
+        deleteButton.addEventListener("click", () => {
+       //     console.log("old project"); console.log(project);
+            let index = projects.indexOf(project);
+            projects[index] = delete_task(project["tasks"][i], project, taskList);
+            localStorage.setItem("project_list", JSON.stringify(projects));
+
+            //console.log("new project"); console.log(project);
+            build_projects();
+        })
+
+        div.appendChild(deleteButton);
+        taskDiv.appendChild(div);
+    }
+    return myDiv;
 }
 
-export {delete_project_button, delete_task_button, delete_task};
+function edit_task_button(task){
+    const editButton = document.createElement("button");
+    editButton.className = "edit-task";
+    editButton.textContent = "Edit Task";
+    return editButton;
+}
+
+export {delete_project_button, delete_task_button, delete_task, edit_project};

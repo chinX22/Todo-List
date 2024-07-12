@@ -1,5 +1,5 @@
 import { clear } from "./home.js";
-import { delete_project_button, delete_task_button, delete_task} from "./actions.js";
+import { delete_project_button, delete_task_button, delete_task, edit_project} from "./actions.js";
 import './projects.css';
 const container = document.getElementById("container");
 const header = document.querySelector("header");
@@ -16,6 +16,7 @@ function get_projects(){
     return arr;
 }
 
+
 function show_projects(taskList){
     let projects = get_projects();
     const projectsDiv = document.querySelector(".projects");
@@ -23,7 +24,8 @@ function show_projects(taskList){
     for (let project of projects){
         let myDiv = document.createElement('div');
         myDiv.className = "project-card";
-        myDiv.appendChild(delete_project_button(project))
+
+
         let Title = document.createElement('h2');
         Title.textContent = project["name"]["name"];
         Title.className = "project-title";
@@ -44,22 +46,15 @@ function show_projects(taskList){
             due.textContent = project["tasks"][i]["dueDate"];
             due.className = "due";
             div.appendChild(due);
-
-            let deleteButton = delete_task_button();
-            deleteButton.addEventListener("click", () => {
-           //     console.log("old project"); console.log(project);
-                let index = projects.indexOf(project);
-                projects[index] = delete_task(project["tasks"][i], project, taskList);
-                localStorage.setItem("project_list", JSON.stringify(projects));
-
-                //console.log("new project"); console.log(project);
-                build_projects();
-            })
-
-            div.appendChild(deleteButton);
             taskDiv.appendChild(div);
         }
         
+        let editButton = document.createElement("button");
+        editButton.textContent = "Edit Project";
+        editButton.addEventListener("click", () => {
+            myDiv = edit_project(project, myDiv, taskList, projects);
+        });
+        myDiv.appendChild(editButton);
         projectsDiv.appendChild(myDiv);
     }
 }
