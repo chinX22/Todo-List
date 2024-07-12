@@ -7,10 +7,21 @@
 	vertical-align: baseline;
 }
 
+
 body { 
     min-height: 100vh; 
 }
 
+header, footer{
+	height: 5vh;
+}
+
+header{
+	position: sticky;
+	top: 0;
+}
+
 #container{
+	min-height: 90vh;
 	display: flex;
 }

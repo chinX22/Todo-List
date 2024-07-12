@@ -2,6 +2,7 @@ const container = document.getElementById("container");
 const header = document.querySelector("header");
 import {make_project} from "./form.js";
 import {build_projects} from "./projects.js";
+import { build_upcoming } from "./upcoming.js";
 
 function make_head_foot(){
     const projectsDiv = document.createElement('div');
@@ -25,14 +26,17 @@ function make_head_foot(){
 
 function new_project(){
     let project_div = document.createElement('div');
-    project_div.className = "projectHome";
+    project_div.className = "project-button";
+    let buttonLabel = document.createElement('p');
+    buttonLabel.textContent = "Create new project";
     let newProjectButton = document.createElement('button');
-    newProjectButton.textContent = "New Project";
+    newProjectButton.textContent = "Plus";
     newProjectButton.addEventListener("click", () => {
         make_project();
     });
+    project_div.appendChild(buttonLabel);
     project_div.appendChild(newProjectButton);
-    container.appendChild(project_div);
+    header.appendChild(project_div);
 }
 
 function build_home(){
@@ -43,6 +47,7 @@ function build_home(){
     
 
     build_projects();
+    build_upcoming();
   //  see_projects();
 }
 

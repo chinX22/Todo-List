@@ -1,11 +1,12 @@
 .projects{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 75vw;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     gap: 50px;
 }
 
 .project-card{
-    height: 800px;
-    width: 500px;
+    height: clamp (300px, fit-content, 800px);
+    max-width: 400px;
+    background-color: aqua;
 }

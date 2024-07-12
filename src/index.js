@@ -2,11 +2,14 @@ import "./default.css";
 import { build_home, make_head_foot} from "./home.js";
 import {storage_initalize, print_storage} from "./storage.js";
 
-storage_initalize();
 make_head_foot();
 build_home();
-print_storage()
+print_storage();
 
+let wipe = document.createElement('button');
+wipe.textContent = "WWIPPPPEEE";
+wipe.addEventListener("click", () => storage_initalize());
+document.querySelector("header").appendChild(wipe);
 
 // const container = document.getElementById('container');
 // const but = document.createElement('button');

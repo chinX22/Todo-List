@@ -1,7 +1,7 @@
 import {new_task_storage, new_project_storage} from './storage';
 
 function get_data(){
-    console.log("you just read a form");
+   // console.log("you just read a form");
     let data = Array.from(document.querySelectorAll("form input")).reduce((acc, input) =>
     ({...acc,[input.id]: input.value }), {});
     return data;
@@ -9,6 +9,8 @@ function get_data(){
 
 let Task = function (){
     let task = get_data();
+    task.myProject;
+    console.log(task);
     task.give_props = function(){
         return (Object.getOwnPropertyNames(task));
     }
@@ -25,6 +27,6 @@ function Project (){
     return project;
 }
 
-export {Task, Project};
+export {Task, Project, get_data};
 
 //PPp

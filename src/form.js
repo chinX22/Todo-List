@@ -3,12 +3,13 @@ import {build_projects} from "./projects.js";
 import {Task, Project} from './objects'
 import {add_task_storage, new_project_storage, print_storage, task_to_project, add_project_storage} from './storage';
 const container = document.getElementById("container");
+console
 
 function make_task(){
     let myModal = document.createElement("dialog");
     myModal.id = "taskModal";
     let myForm = document.createElement("form");
-    myForm.id = "theForm";
+    myForm.id = "taskForm";
     myForm.setAttribute('method',  'dialog');
 
     let m = [["name",'text', "Title: "], 
@@ -27,6 +28,7 @@ function make_task(){
     }
     
     let steps = document.createElement('ul');
+    steps.id = "steps";
     myForm.appendChild(steps);
 
     let addSteps = document.createElement('button');
@@ -37,20 +39,19 @@ function make_task(){
         step_adder()
     });
     myForm.appendChild(addSteps);
-    container.appendChild(myModal);
-    myModal.showModal();
 
     
     function step_adder(){
         if (steps.childElementCount == 0){  
             let stepsTitle = document.createElement('h3');
             stepsTitle.textContent = "Steps"
+            stepsTitle.id = "steps-title";
             myForm.appendChild(stepsTitle);
         }
         if (steps.childElementCount < 30){
             let newstep = document.createElement('input');
             steps.appendChild(newstep);
-            newstep.id = "step" + steps.childElementCount;
+            newstep.className = "step";
             newstep.setAttribute('type', 'input');
         } else {
             console.log("TOO MUCH!")
@@ -66,7 +67,14 @@ function make_task(){
         // console.log(typeof myForm);
         // document.getElementById("theForm").submit();
         makesTask();
-        myForm.reset();
+        close_form();
+        make_task();
+        // document.getElementById("steps").remove();
+        // document.getElementById("steps-title").remove();
+        // let steps = document.createElement('ul');
+        // steps.id = "steps";
+        // myForm.appendChild(steps);
+        
     })
     myForm.appendChild(add);
 
@@ -94,8 +102,8 @@ function make_task(){
     
     function makesTask(){
         let newTask = Task();
-        add_task_storage(newTask);
         task_to_project(newTask);
+        add_task_storage(newTask);
         print_storage();
     }
     // myForm.addEventListener("submit", (event) => {
@@ -107,15 +115,20 @@ function make_task(){
     // })
 
     myModal.appendChild(myForm);
-
-    container.appendChild(myModal);
+    document.querySelector("body").appendChild(myModal);
+    myModal.showModal();
 }
+
+
+//----------------------------------------------------//
+
 
 function make_project (){
     let myModal = document.createElement("dialog");
     myModal.id = "projectModal";
     let myForm = document.createElement("form");
     myForm.setAttribute('method',  'dialog');
+    myForm.id = "projectForm";
 
     let label = document.createElement("label");
     label.textContent = "Name: ";
@@ -138,18 +151,20 @@ function make_project (){
     myForm.appendChild(newTaskButton);
     newTaskButton.addEventListener("click", (event) => {
         event.preventDefault();
+        if(document.getElementById('name').value !== ""){
         let newPro = Project();
         new_project_storage(newPro);
         close_form();
         make_task();
+        }
     });
-    container.appendChild(myModal);
+    document.querySelector("body").appendChild(myModal);
     myModal.showModal();
 }
 
 function close_form(){
     let myModal = document.querySelector("dialog");
-    console.log("closed!");
+    //console.log("closed!");
     myModal.remove();
 }
 
