@@ -1,9 +1,9 @@
 import "./default.css";
-import { build_home, make_head_foot} from "./home.js";
+import { build, make_head_foot} from "./home.js";
 import {storage_initalize, print_storage} from "./storage.js";
 
 make_head_foot();
-build_home();
+build();
 print_storage();
 
 let wipe = document.createElement('button');

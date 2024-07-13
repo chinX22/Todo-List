@@ -24,7 +24,7 @@ function make_head_foot(){
     // header.appendChild(navbar);
 }
 
-function new_project(){
+function inital(){
     let project_div = document.createElement('div');
     project_div.className = "project-button";
     let buttonLabel = document.createElement('p');
@@ -37,22 +37,27 @@ function new_project(){
     project_div.appendChild(buttonLabel);
     project_div.appendChild(newProjectButton);
     header.appendChild(project_div);
+
+    let bigDiv = document.createElement("div");
+    bigDiv.id = "upcoming";
+    container.appendChild(bigDiv);
+}
+
+function build(){
+    // const where = document.querySelector("h1");
+    // where.textContent = "Home";
+    inital();
+    build_home()
+  //  see_projects();
 }
 
 function build_home(){
-    // const where = document.querySelector("h1");
-    // where.textContent = "Home";
-    
-    new_project();
-    
-
     build_projects();
     build_upcoming();
-  //  see_projects();
 }
 
 function clear(element){
     element.replaceChildren();
 }
 
-export {make_head_foot, build_home ,clear};
+export {make_head_foot, build_home ,clear, build};

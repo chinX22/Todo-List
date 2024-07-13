@@ -1,7 +1,9 @@
 import './form.css';
 import {build_projects} from "./projects.js";
 import {Task, Project} from './objects'
-import {add_task_storage, new_project_storage, print_storage, task_to_project, add_project_storage, update_task} from './storage';
+import {add_task_storage, new_project_storage, print_storage, task_to_project, 
+        add_project_storage, update_task, update_project} from './storage';
+import { build_home } from './home.js';
 
 function edit_task_form(task){
     let old_task = task;
@@ -22,7 +24,9 @@ function edit_task_form(task){
         input0.id = m[i][0];
         label0.setAttribute("for", m[i][0]);
         input0.setAttribute('type', m[i][1]);
-        input0.value = task[m[i][0]];
+        if (task !== undefined){
+            input0.value = task[m[i][0]];
+        }
         myForm.appendChild(input0);
         myForm.appendChild(label0);
     }
@@ -40,15 +44,17 @@ function edit_task_form(task){
     });
     myForm.appendChild(addSteps);
     
-    if(task.steps.length > 0){
-        myForm.appendChild(makeStepsTitle());
-        for (let step of task.steps){
-            let newstep = makeStep();
-            newstep.id = "step" + steps.childElementCount;
-            newstep.value = step;
-            steps.appendChild(newstep);
-        }
+    if (task !== undefined){
+        if(task.steps.length > 0){
+            myForm.appendChild(makeStepsTitle());
+            for (let step of task.steps){
+                let newstep = makeStep();
+                newstep.id = "step" + steps.childElementCount;
+                newstep.value = step;
+                steps.appendChild(newstep);
+            }
 
+        }
     }
 
     
@@ -88,8 +94,13 @@ function edit_task_form(task){
     function makesTask(){
         let newTask = Task();
         task_to_project(newTask);
-        update_task(old_task, newTask);
-        build_projects();
+        if(task !== undefined){
+            update_task(old_task, newTask);
+        } else {
+            add_task_storage(newTask);
+            update_project();
+        }
+        build_home();//
         print_storage();
     }
 
@@ -119,6 +130,9 @@ function edit_task_form(task){
     document.querySelector("body").appendChild(myModal);
     myModal.showModal();
 }
+
+
+//---------------------------------------------//
 
 
 function make_task(){
@@ -206,7 +220,7 @@ function make_task(){
         makesTask();
         close_form();
         add_project_storage();
-        build_projects();
+        build_home();//
     })
     myForm.appendChild(submit);
 

@@ -1,4 +1,4 @@
-import { build_projects } from "./projects";
+import { build_home } from "./home";
 import { edit_task_form } from "./form";
 
 function delete_project_button(project){
@@ -19,7 +19,7 @@ function delete_project(pro){
         if(JSON.stringify(arr_p[i]) === JSON.stringify(pro)){
             arr_p.splice(i, 1);
             localStorage.setItem("project_list", JSON.stringify(arr_p));
-            build_projects();
+            build_home();
             break;
         }
     }
@@ -77,9 +77,19 @@ function delete_task(task, project, taskList){
 }
 
 function edit_project(project, myDiv, taskList, projects){
-    myDiv.appendChild(delete_project_button(project));
+    let buttons = myDiv.querySelector(".project-buttons")
+
+    buttons.appendChild(delete_project_button(project));
     let taskDiv = myDiv.querySelector(".task-list");
     taskDiv.replaceChildren();
+    let addButton = add_task_button();
+    buttons.appendChild(cancel_button());
+    addButton.addEventListener("click", () => {
+        localStorage.setItem("current_project", JSON.stringify(project));
+        localStorage.setItem("old_project", JSON.stringify(project));
+        add_task();
+    });
+    buttons.appendChild(addButton);
     for (let i = 0 ; i < project["tasks"].length; i++){
         let div = document.createElement("div");
         div.className = "task-line";
@@ -107,7 +117,7 @@ function edit_project(project, myDiv, taskList, projects){
         div.appendChild(editButton);
         taskDiv.appendChild(div);
     }
-    return myDiv;
+    return [myDiv, buttons];
 }
 
 function edit_task_button(){
@@ -115,6 +125,25 @@ function edit_task_button(){
     editButton.className = "edit-task";
     editButton.textContent = "Edit Task";
     return editButton;
+}
+
+function add_task_button(){
+    const addButton = document.createElement("button");
+    addButton.className = "add-task";
+    addButton.textContent = "Add Task";
+    return addButton;
+}
+
+function cancel_button(){
+    const cancelButton = document.createElement("button");
+    cancelButton.className = "cancel-task";
+    cancelButton.textContent = "Cancel Task";
+    cancelButton.addEventListener("click", () => build_home())
+    return cancelButton;
+}
+
+function add_task(){
+    edit_task_form();
 }
 
 function edit_task(task){

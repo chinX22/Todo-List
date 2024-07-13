@@ -101,6 +101,7 @@ function update_project(){
     localStorage.setItem("project_list", JSON.stringify(arr));
 }
 
+
 function new_project_storage(project){
     localStorage.setItem("current_project", JSON.stringify(project));
     //console.log(JSON.parse(localStorage.getItem("current_project")));
@@ -125,4 +126,5 @@ function print_storage(){
     //console.log(Object.keys(localStorage));
 }
 
-export{storage_initalize, add_task_storage, new_project_storage, add_project_storage, print_storage, task_to_project, update_task};
+export{storage_initalize, add_task_storage, new_project_storage, add_project_storage, 
+    print_storage, task_to_project, update_task, update_project};

@@ -25,11 +25,19 @@ function show_projects(taskList){
         let myDiv = document.createElement('div');
         myDiv.className = "project-card";
 
+        let top = document.createElement('div');
+        top.className = "top";
+        myDiv.appendChild(top);
 
         let Title = document.createElement('h2');
         Title.textContent = project["name"]["name"];
         Title.className = "project-title";
-        myDiv.appendChild(Title);
+        top.appendChild(Title);
+
+        let buttons = document.createElement('div');
+        buttons.className = "project-buttons";
+        top.appendChild(buttons);
+
         let taskDiv = document.createElement('div');
         taskDiv.className = "task-list";
         myDiv.appendChild(taskDiv);
@@ -52,9 +60,10 @@ function show_projects(taskList){
         let editButton = document.createElement("button");
         editButton.textContent = "Edit Project";
         editButton.addEventListener("click", () => {
-            myDiv = edit_project(project, myDiv, taskList, projects);
+            [myDiv, buttons] = edit_project(project, myDiv, taskList, projects);
         });
-        myDiv.appendChild(editButton);
+
+        buttons.appendChild(editButton);
         projectsDiv.appendChild(myDiv);
     }
 }
