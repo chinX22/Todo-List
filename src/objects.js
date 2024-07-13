@@ -8,15 +8,29 @@ function get_data(){
 }
 
 let Task = function (){
-    let task = get_data();
+    let task = (get_steps(get_data()));
     task.myProject;
     console.log(task);
-    task.give_props = function(){
-        return (Object.getOwnPropertyNames(task));
+    return task;
+}
+
+function get_steps(task){
+    let mySteps = [];
+    let numOfProps = Object.keys(task).length;
+    let props = Object.keys(task);
+    console.log ("props: ");
+    console.log (props);
+    let vals = Object.values(task);
+    for (let i = 0; i < numOfProps; i++){
+        if(props[i].includes("step")){
+            delete task[props[i]];
+            if(vals[i] !== ""){
+                console.log("has a step");
+                mySteps.push(vals[i]);
+            }
+        }
     }
-    task.give_data = function(){
-        return (Object.values(task));
-    }
+    task.steps = mySteps;
     return task;
 }
 

@@ -1,4 +1,5 @@
 import { build_projects } from "./projects";
+import { edit_task_form } from "./form";
 
 function delete_project_button(project){
     const deleteButton = document.createElement("button");
@@ -89,26 +90,35 @@ function edit_project(project, myDiv, taskList, projects){
 
         let deleteButton = delete_task_button();
         deleteButton.addEventListener("click", () => {
-       //     console.log("old project"); console.log(project);
             let index = projects.indexOf(project);
             projects[index] = delete_task(project["tasks"][i], project, taskList);
             localStorage.setItem("project_list", JSON.stringify(projects));
-
-            //console.log("new project"); console.log(project);
             build_projects();
-        })
+        });
+
+        let editButton = edit_task_button();
+        editButton.addEventListener("click", () => {
+            localStorage.setItem("current_project", JSON.stringify(project));
+            localStorage.setItem("old_project", JSON.stringify(project));
+            edit_task(project["tasks"][i]);
+        });
 
         div.appendChild(deleteButton);
+        div.appendChild(editButton);
         taskDiv.appendChild(div);
     }
     return myDiv;
 }
 
-function edit_task_button(task){
+function edit_task_button(){
     const editButton = document.createElement("button");
     editButton.className = "edit-task";
     editButton.textContent = "Edit Task";
     return editButton;
 }
 
-export {delete_project_button, delete_task_button, delete_task, edit_project};
+function edit_task(task){
+    edit_task_form(task);
+}
+
+export {delete_project_button, delete_task_button, delete_task, edit_project, edit_task_button};

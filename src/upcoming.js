@@ -3,14 +3,15 @@ import {parseISO, format, compareAsc,
  } from 'date-fns';
 
 function build_upcoming(){
-    // let bigDiv = document.createElement("div");
-    // document.getElementById("container").appendChild(bigDiv);
-    // let arr = order_date(JSON.parse(localStorage.getItem("task_list")));
-    // for (let data of arr){
-    //     let date = document.createElement("p");
-    //     date.textContent = format(data, 'MMMM do, yyyy h:mm a');
-    //     bigDiv.appendChild(date);
-    // }
+    let bigDiv = document.createElement("div");
+    document.getElementById("container").appendChild(bigDiv);
+    let arr = order_date(JSON.parse(localStorage.getItem("task_list")));
+    bigDiv.id = "upcoming";
+    for (let data of arr){
+        let date = document.createElement("p");
+        date.textContent = format(data, 'MMMM do, yyyy h:mm a');
+        bigDiv.appendChild(date);
+    }
 
 }
 
@@ -21,6 +22,7 @@ function order_date(list){
         unsorted.push(parseISO(task_list[i]["dueDate"]));
     }
     let sorted = unsorted.sort(compareAsc)
+    seperate(sorted);
     console.log(sorted);
     return sorted;
 }
@@ -43,4 +45,5 @@ function seperate(list){
             thisMonth.push(date);
         }
     }
+    return [thisHour, thisDay, thisWeek, thisMonth];
 }

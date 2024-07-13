@@ -44,6 +44,63 @@ function task_to_project(task){
     localStorage.setItem("current_project", JSON.stringify(pro));
 }
 
+function update_task(old_task, new_task){
+    console.log("old");
+    console.log(old_task);
+    console.log("new");
+    console.log(new_task);
+    project_remove_task(old_task);
+    remove_task_storage(old_task);
+    add_task_storage (new_task);
+    update_project();
+}
+
+function project_remove_task(task){
+    let pro = JSON.parse(localStorage.getItem("current_project"));
+    let arr = pro.tasks;
+    console.log("current pro");
+    console.log(arr);
+    for (let i = 0; i < arr.length; i++){
+        if(JSON.stringify(task) === JSON.stringify(arr[i])){
+            arr.splice(i, 1);
+            console.log(task);
+            console.log("removed from pro");
+        }
+    }
+    pro.tasks = arr;
+    localStorage.setItem("current_project", JSON.stringify(pro));
+}
+
+function remove_task_storage(task){
+    let tasks = JSON.parse(localStorage.getItem("task_list"));
+    let arr = tasks;
+    console.log("current tasks");
+    console.log(arr);
+    for (let i = 0; i < arr.length; i++){
+        if(JSON.stringify(task) === JSON.stringify(arr[i])){
+            arr.splice(i, 1);
+            console.log(task);
+            console.log("removed from storage");
+        }
+    }
+    tasks = arr;
+    localStorage.setItem("task_list", JSON.stringify(tasks));
+}
+
+function update_project(){
+    let old_pro = JSON.parse(localStorage.getItem("old_project"));
+    let new_pro = JSON.parse(localStorage.getItem("current_project"));
+    let arr = JSON.parse(localStorage.getItem("project_list"));
+    for (let i = 0; i < arr.length; i++){
+        if(JSON.stringify(arr[i]) === JSON.stringify(old_pro)){
+            arr.splice(i, 1, new_pro);
+            console.log("updated project"); 
+            break;
+        }
+    }
+    localStorage.setItem("project_list", JSON.stringify(arr));
+}
+
 function new_project_storage(project){
     localStorage.setItem("current_project", JSON.stringify(project));
     //console.log(JSON.parse(localStorage.getItem("current_project")));
@@ -68,4 +125,4 @@ function print_storage(){
     //console.log(Object.keys(localStorage));
 }
 
-export{storage_initalize, add_task_storage, new_project_storage, add_project_storage, print_storage, task_to_project};
+export{storage_initalize, add_task_storage, new_project_storage, add_project_storage, print_storage, task_to_project, update_task};
