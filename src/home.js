@@ -3,6 +3,7 @@ const header = document.querySelector("header");
 import {make_project} from "./form.js";
 import {build_projects} from "./projects.js";
 import { build_upcoming } from "./upcoming.js";
+import {storage_initalize} from "./storage.js"
 
 function make_head_foot(){
     const projectsDiv = document.createElement('div');
@@ -11,6 +12,7 @@ function make_head_foot(){
 }
 
 function inital(){
+    storage_initalize();
     let logo = document.createElement('h1');
     logo.id = "logo";
     logo.textContent = "Get 2 It"
