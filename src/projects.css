@@ -1,12 +1,100 @@
 .projects{
-    width: 75vw;
+    width: max(fit-content, 75vw);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     gap: 50px;
 }
 
 .project-card{
-    height: clamp (300px, fit-content, 800px);
+    min-height: fit-content;
+    max-height: 600px;
     max-width: 400px;
-    background-color: aqua;
+    background-color: var(--alt-color);
+    padding: 30px;
+    border-radius: 40px;
+    box-shadow: 5px 5px 3px rgb(235, 235, 235);
+}
+
+.top{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    gap: 10%;
+}
+
+.project-title{
+    font-size: 32px;
+    max-width: 40%;
+    overflow-wrap: break-word;
+    margin-bottom: 20px;
+}
+
+.project-buttons{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    min-width: max(50%, 180px);
+    gap: 5px;
+}
+
+.task-line > 
+ul{
+    padding-left: 15px;
+}
+
+.task-line-edit, .project-buttons{
+    button{
+        max-height: 70px;
+        font-size: 14px;
+        padding: 5px 10px;
+        border-radius: 8px;
+        text-wrap: nowrap;
+    }
+}
+
+.task-line-edit{
+    display: grid;
+    align-items: center;
+    grid-template-columns: 5fr 1fr 1fr;
+    gap: 10px;
+    button{
+        justify-self: flex-end;
+    }
+    .task-title{
+        justify-self: flex-start;
+        font-size: 20px;
+    }
+}
+
+
+
+.task-top{
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+}
+
+.task-list{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+}
+
+.add-task:hover{
+    background-color: rgb(135, 255, 111);
+}
+
+.cancel-task:hover{
+    background-color: rgb(255, 111, 111);
+}
+
+.edit-task:hover, .edit-pro:hover, .project-header>button:hover{
+    background-color: var(--alt-alt);
+}
+
+.delete-task:hover, .delete-project:hover{
+    background-color: rgb(126, 0, 0);
 }

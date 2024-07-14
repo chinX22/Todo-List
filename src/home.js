@@ -8,29 +8,19 @@ function make_head_foot(){
     const projectsDiv = document.createElement('div');
     projectsDiv.className = "projects";
     container.appendChild(projectsDiv);
-    // const where = document.createElement("h1");
-    // where.textContent = "Home";
-    // header.appendChild(where);
-    // const navbar = document.createElement("ul");
-    // const navButtons = ["Home", "Projects"];
-    // const navLinks = [build_home, build_projects];
-    // for(let i = 0; i < navButtons.length; i++){
-    //     const but = document.createElement('button');
-    //     but.textContent = "Go To" + navButtons[i];
-    //     but.id = navButtons[i];
-    //     but.addEventListener("click", navLinks[i]);
-    //     navbar.appendChild(but);
-    // }
-    // header.appendChild(navbar);
 }
 
 function inital(){
+    let logo = document.createElement('h1');
+    logo.id = "logo";
+    logo.textContent = "Get 2 It"
+    header.appendChild(logo);
     let project_div = document.createElement('div');
-    project_div.className = "project-button";
+    project_div.className = "project-header";
     let buttonLabel = document.createElement('p');
     buttonLabel.textContent = "Create new project";
     let newProjectButton = document.createElement('button');
-    newProjectButton.textContent = "Plus";
+    newProjectButton.textContent = "+";
     newProjectButton.addEventListener("click", () => {
         make_project();
     });

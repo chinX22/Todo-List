@@ -79,21 +79,26 @@ function delete_task(task, project, taskList){
 function edit_project(project, myDiv, taskList, projects){
     let buttons = myDiv.querySelector(".project-buttons")
 
-    buttons.appendChild(delete_project_button(project));
+    
     let taskDiv = myDiv.querySelector(".task-list");
     taskDiv.replaceChildren();
     let addButton = add_task_button();
-    buttons.appendChild(cancel_button());
+    
     addButton.addEventListener("click", () => {
         localStorage.setItem("current_project", JSON.stringify(project));
         localStorage.setItem("old_project", JSON.stringify(project));
         add_task();
     });
+    
     buttons.appendChild(addButton);
+    buttons.appendChild(delete_project_button(project));
+    buttons.appendChild(cancel_button());
+
+
     for (let i = 0 ; i < project["tasks"].length; i++){
         let div = document.createElement("div");
-        div.className = "task-line";
-        let Title2 = document.createElement('h3');
+        div.className = "task-line-edit";
+        let Title2 = document.createElement('h5');
         Title2.textContent = project["tasks"][i]["name"];
         Title2.className = "task-title";
         div.appendChild(Title2);
@@ -103,7 +108,7 @@ function edit_project(project, myDiv, taskList, projects){
             let index = projects.indexOf(project);
             projects[index] = delete_task(project["tasks"][i], project, taskList);
             localStorage.setItem("project_list", JSON.stringify(projects));
-            build_projects();
+            build_home();
         });
 
         let editButton = edit_task_button();
@@ -113,8 +118,8 @@ function edit_project(project, myDiv, taskList, projects){
             edit_task(project["tasks"][i]);
         });
 
-        div.appendChild(deleteButton);
         div.appendChild(editButton);
+        div.appendChild(deleteButton);
         taskDiv.appendChild(div);
     }
     return [myDiv, buttons];
@@ -137,7 +142,7 @@ function add_task_button(){
 function cancel_button(){
     const cancelButton = document.createElement("button");
     cancelButton.className = "cancel-task";
-    cancelButton.textContent = "Cancel Task";
+    cancelButton.textContent = "Cancel";
     cancelButton.addEventListener("click", () => build_home())
     return cancelButton;
 }

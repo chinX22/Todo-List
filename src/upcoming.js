@@ -2,6 +2,8 @@ import {parseISO, format, compareAsc, isPast,
         isThisHour, isToday, isThisWeek, isThisMonth
  } from 'date-fns';
 
+ import './upcoming.css';
+
 function build_upcoming(){
     let bigDiv = document.getElementById("upcoming");
     bigDiv.replaceChildren();
@@ -9,7 +11,7 @@ function build_upcoming(){
     upcomingTitle.textContent = "Tasks";
     upcomingTitle.id = "upcoming-title"
     bigDiv.appendChild(upcomingTitle);
-    document.getElementById("container").appendChild(bigDiv);
+    document.querySelector("body").appendChild(bigDiv);
     order_task_list();
     let arr_0 = JSON.parse(localStorage.getItem("task_list"));
     let arr = arr_0.filter((task) => task.dueDate !== "");
@@ -75,16 +77,16 @@ export {build_upcoming}
 function filter(date){
     date = parseISO(date);
     if (isPast(date)){
-        return ["past-task", format(date, 'L / d'), "Past Tasks"];
+        return ["past-task", format(date, 'L/d'), "Past Tasks"];
     } else if(isThisHour(date)){
-        return ["hour-task", format(date, 'h:m aaaa'), "This Hour"];
+        return ["hour-task", format(date, 'h:mm aaaa'), "This Hour"];
     } else if(isToday(date)){
-        return ["today-task", format(date, 'h:m aaaa'), "Today"];
+        return ["today-task", format(date, 'h:mm aaaa'), "Today"];
     } else if(isThisWeek(date)){
-        return ["week-task", format(date, 'eeee h:m aaaa'), "This Week"];
+        return ["week-task", format(date, 'eeee h:mm aaaa'), "This Week"];
     } else if(isThisMonth(date)){
-        return ["month-task", format(date, 'L/ d h:m aaaa'), "This Month"];
+        return ["month-task", format(date, 'L/d h:mm aaaa'), "This Month"];
     } else {
-        return ["way-later", format(date, 'L/ d / yyyy h:m aaaa'), "Even Later"];
+        return ["way-later", format(date, 'L/d/yyyy h:mm aaaa'), "Even Later"];
     }
 }

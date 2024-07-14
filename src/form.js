@@ -37,7 +37,7 @@ function edit_task_form(task){
 
     let addSteps = document.createElement('button');
     addSteps.textContent = "Add Step";
-    addSteps.id = "steps";
+    addSteps.id = "stepsButton";
     addSteps.addEventListener("click", (event) => {
         event.preventDefault();
         step_adder()
@@ -75,6 +75,7 @@ function edit_task_form(task){
     let update = document.createElement('button');
     update.textContent = "Update";
     update.id = "submit";
+    update.className = "devon";
     update.addEventListener("click", (event) => {
         event.preventDefault();
         // console.log(typeof myForm);
@@ -163,7 +164,7 @@ function make_task(){
 
     let addSteps = document.createElement('button');
     addSteps.textContent = "Add Step";
-    addSteps.id = "steps";
+    addSteps.id = "stepsButton";
     addSteps.addEventListener("click", (event) => {
         event.preventDefault();
         step_adder()
@@ -261,27 +262,41 @@ function make_project (){
     myForm.setAttribute('method',  'dialog');
     myForm.id = "projectForm";
 
-    let label = document.createElement("label");
-    label.textContent = "Name: ";
-    let input = document.createElement("input");
-    input.id = "name";
-    label.setAttribute("for", "name");
-    input.setAttribute('type', "text");
-    myForm.appendChild(input);
-    myForm.appendChild(label);
-
     let cancel = document.createElement('button');
     cancel.textContent = "Cancel";
     cancel.id = "cancel";
+    cancel.focus({ focusVisible: false });
     cancel.addEventListener('click', () => close_form());
     myForm.appendChild(cancel);
+
+    let label = document.createElement("label");
+    label.textContent = "Project Name:";
+    let input = document.createElement("textarea");
+    input.id = "fake-name";
+    label.setAttribute("for", "name");
+    input.setAttribute('form', "projectForm");
+    input.setAttribute('wrap', "hard");
+
+    let real_input = document.createElement("input");
+    real_input.id = "name";
+    myForm.appendChild(real_input);
+
+    let inputDiv = document.createElement("div");
+    inputDiv.id = "inputDiv";
+    inputDiv.appendChild(label);
+    inputDiv.appendChild(input);
+    myForm.appendChild(inputDiv);
+
     myModal.appendChild(myForm);
 
     let newTaskButton = document.createElement('button');
-    newTaskButton.textContent = "New Task";
+    newTaskButton.textContent = "Add Task";
+    newTaskButton.id = "newTask";
     myForm.appendChild(newTaskButton);
     newTaskButton.addEventListener("click", (event) => {
         event.preventDefault();
+        real_input.value = input.value;
+        console.log(input.value);
         if(document.getElementById('name').value !== ""){
         let newPro = Project();
         new_project_storage(newPro);

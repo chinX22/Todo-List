@@ -1,5 +1,6 @@
 import { clear } from "./home.js";
 import { delete_project_button, delete_task_button, delete_task, edit_project} from "./actions.js";
+import { format, parseISO} from "date-fns";
 import './projects.css';
 const container = document.getElementById("container");
 const header = document.querySelector("header");
@@ -45,25 +46,53 @@ function show_projects(taskList){
         for (let i = 0 ; i < project["tasks"].length; i++){
             let div = document.createElement("div");
             div.className = "task-line";
-            let Title2 = document.createElement('h3');
+
+            let taskTop = document.createElement("div");
+            taskTop.className = "task-top";
+
+            let Title2 = document.createElement('h5');
             Title2.textContent = project["tasks"][i]["name"];
             Title2.className = "task-title";
-            div.appendChild(Title2);
+            taskTop.appendChild(Title2);
 
-            let due = document.createElement('h3');
-            due.textContent = project["tasks"][i]["dueDate"];
-            due.className = "due";
-            div.appendChild(due);
+            if(project["tasks"][i]["dueDate"] != ""){
+                let this_date = parseISO(project["tasks"][i]["dueDate"])
+                let due = document.createElement('h5');
+                due.textContent = format(this_date, 'L/d h:mmaaaa');
+                due.className = "due";
+                taskTop.appendChild(due);
+            }
+
+            div.appendChild(taskTop);
+
+            let description = document.createElement('p');
+            description.textContent = project["tasks"][i]["description"];
+            description.className = "description";
+            div.appendChild(description);
             taskDiv.appendChild(div);
+            if(project["tasks"][i]["steps"].length > 0){
+                let steps = document.createElement('ul');
+                steps.className = "task-steps";
+                for (let step of project["tasks"][i]["steps"]){
+                    let this_step = document.createElement("li");
+                    this_step.textContent = step;
+                    steps.appendChild(this_step);
+                }
+                div.appendChild(steps);
+            }
         }
         
         let editButton = document.createElement("button");
         editButton.textContent = "Edit Project";
+        editButton.className = "edit-pro";
+
+        buttons.appendChild(editButton);
+
         editButton.addEventListener("click", () => {
+            editButton.remove();
             [myDiv, buttons] = edit_project(project, myDiv, taskList, projects);
         });
 
-        buttons.appendChild(editButton);
         projectsDiv.appendChild(myDiv);
     }
 }
