@@ -8,6 +8,7 @@
 	--main-color : aqua;
 	--alt-color: rgb(130, 255, 255);
 	--alt-alt: rgb(179, 92, 255);
+	box-sizing: border-box;
 }
 
 button{
@@ -16,23 +17,16 @@ button{
 }
 
 body { 
-    min-height: 100vh; 
+    min-height: fit-content; 
 	display: grid;
 	justify-items: center;
-	grid-template: auto auto auto / auto auto;
+	grid-template: auto auto / 3fr 1fr;
 	overflow: visible;
 	font-family: 'Trebuchet MS', sans-serif;
 }
 
-header, footer{
-	justify-self: left;
-	height: 5vh;
-	grid-column: 1 / 3;
-	background-color: var(--main-color);
-	width: 100%;
-}
-
 header{
+	min-height: 5vh;
 	display: flex;
 	position: sticky;
 	top: 0;
@@ -40,6 +34,22 @@ header{
 	padding-left: 5vw;
 	gap: 60px;
 }
+
+header, footer{
+	justify-self: left;
+	grid-column: 1 / 3;
+	background-color: var(--main-color);
+	min-width: 100%;
+	max-width: 100vw;
+	display: flex;
+	position: sticky;
+	bottom: 0;
+}
+
+footer{
+	min-height: 5vh;
+}
+
 
 #logo{
 	font-size: 34px;
@@ -58,15 +68,18 @@ header{
 	}
 }
 
-#container, #upcoming{
+#upcoming{
+	grid-column: 2 / 3;
 	grid-row: 2 / 3;
 }
 
 #container{
+	grid-column: 1 / 2;
 	min-height: 90vh;
 	display: flex;
 	justify-content: center;
 	gap: 5vw;
-	margin: 70px 0px 40px 100px;
+	padding: 70px 0px 40px 100px;
+	width: 100%;
 
 }

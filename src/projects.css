@@ -1,8 +1,9 @@
 .projects{
-    width: max(fit-content, 75vw);
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 50px;
+    row-gap: 50px;
+    column-gap: 35px;
 }
 
 .project-card{
@@ -52,6 +53,19 @@ ul{
         border-radius: 8px;
         text-wrap: nowrap;
     }
+}
+
+.task-top{
+    max-width: 100%;
+}
+
+.task-title, .description, li{
+    overflow-wrap: break-word;
+    max-width: 90%;
+}
+
+.task-title{
+    max-width: 60%;
 }
 
 .task-line-edit{

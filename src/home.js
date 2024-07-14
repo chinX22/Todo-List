@@ -43,7 +43,10 @@ function build(){
 
 function build_home(){
     build_projects();
-    build_upcoming();
+    let tasks = JSON.parse(localStorage.getItem("task_list"));
+    if(tasks.length > 0){
+        build_upcoming();
+    }
 }
 
 function clear(element){
