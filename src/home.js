@@ -12,7 +12,7 @@ function make_head_foot(){
 }
 
 function inital(){
-    //------------------IT LIVES ------------------//
+    //------------------It Lives for Real ------------------//
     if (localStorage !== null) {
         storage_initalize();
     }
