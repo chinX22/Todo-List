@@ -12,9 +12,11 @@ function make_head_foot(){
 }
 
 function inital(){
-    //------------------It Lives for Real ------------------//
-    if (localStorage !== null) {
+    //------------------It Lives for Real Now------------------//
+    console.log(JSON.parse(localStorage.getItem("task_list")));
+    if (localStorage === null) {
         storage_initalize();
+        console.log("initalize");
     }
     let logo = document.createElement('h1');
     logo.id = "logo";
