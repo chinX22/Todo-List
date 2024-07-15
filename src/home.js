@@ -13,7 +13,9 @@ function make_head_foot(){
 
 function inital(){
     //------------------IT LIVES ------------------//
-    storage_initalize();
+    if (localStorage !== null) {
+        storage_initalize();
+    }
     let logo = document.createElement('h1');
     logo.id = "logo";
     logo.textContent = "Get 2 It"
