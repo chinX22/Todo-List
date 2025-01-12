@@ -1,1 +1,5 @@
-A todo list lol
+#A Todo-List Webapp#
+##Features##
+-Task creation
+-Project creation with multiple tasks
+-Upcoming tasks bar

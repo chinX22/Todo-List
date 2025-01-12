@@ -2,7 +2,7 @@ const container = document.getElementById("container");
 const header = document.querySelector("header");
 import {make_project} from "./form.js";
 import {build_projects} from "./projects.js";
-import { build_upcoming } from "./upcoming.js";
+import {build_upcoming } from "./upcoming.js";
 import {storage_initalize} from "./storage.js"
 
 function make_head_foot(){
@@ -12,7 +12,6 @@ function make_head_foot(){
 }
 
 function inital(){
-    //------------------It Lives for Real Now------------------//
     console.log(JSON.parse(localStorage.getItem("task_list")));
     if (localStorage === null) {
         storage_initalize();
@@ -41,11 +40,8 @@ function inital(){
 }
 
 function build(){
-    // const where = document.querySelector("h1");
-    // where.textContent = "Home";
     inital();
     build_home()
-  //  see_projects();
 }
 
 function build_home(){

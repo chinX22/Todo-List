@@ -1,7 +1,6 @@
 import {new_task_storage, new_project_storage} from './storage';
 
 function get_data(){
-   // console.log("you just read a form");
     let data = Array.from(document.querySelectorAll("form input")).reduce((acc, input) =>
     ({...acc,[input.id]: input.value }), {});
     return data;
@@ -42,5 +41,3 @@ function Project (){
 }
 
 export {Task, Project, get_data};
-
-//PPp

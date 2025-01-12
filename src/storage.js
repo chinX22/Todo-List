@@ -8,7 +8,6 @@ function add_task_storage(task){
         arr = sortDate(arr, task);
     }
     localStorage.setItem("task_list", JSON.stringify(arr));
-    //console.log(JSON.parse(localStorage.getItem("current_task")));
 }
 
 function sortDate(arr, task){
@@ -39,8 +38,6 @@ function task_to_project(task){
         arr = sortDate(arr, task);
     }
     pro.tasks = arr;
-  //  console.log("my project is:");
-  //  console.log(task);
     localStorage.setItem("current_project", JSON.stringify(pro));
 }
 
@@ -104,7 +101,6 @@ function update_project(){
 
 function new_project_storage(project){
     localStorage.setItem("current_project", JSON.stringify(project));
-    //console.log(JSON.parse(localStorage.getItem("current_project")));
 }
 
 function add_project_storage(){
@@ -120,11 +116,5 @@ function storage_initalize(){
     localStorage.setItem("task_list", JSON.stringify([]));
 }
 
-function print_storage(){
-    //console.log("Storage:");
-    //console.log(JSON.parse(localStorage.getItem("project_list")));
-    //console.log(Object.keys(localStorage));
-}
-
 export{storage_initalize, add_task_storage, new_project_storage, add_project_storage, 
-    print_storage, task_to_project, update_task, update_project};
+     task_to_project, update_task, update_project};

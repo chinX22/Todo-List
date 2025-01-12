@@ -6,9 +6,6 @@ const container = document.getElementById("container");
 const header = document.querySelector("header");
 
 function build_projects(){
-    // const where = document.querySelector("h1");
-    // where.textContent = "Projects";
-    //clear();
     show_projects(JSON.parse(localStorage.getItem("task_list")));
 }
 

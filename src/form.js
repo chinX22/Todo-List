@@ -1,7 +1,7 @@
 import './form.css';
 import {build_projects} from "./projects.js";
 import {Task, Project} from './objects'
-import {add_task_storage, new_project_storage, print_storage, task_to_project, 
+import {add_task_storage, new_project_storage, task_to_project, 
         add_project_storage, update_task, update_project} from './storage';
 import { build_home } from './home.js';
 
@@ -78,8 +78,6 @@ function edit_task_form(task){
     update.className = "devon";
     update.addEventListener("click", (event) => {
         event.preventDefault();
-        // console.log(typeof myForm);
-        // document.getElementById("theForm").submit();
         makesTask();
         close_form();
     })
@@ -101,8 +99,7 @@ function edit_task_form(task){
             add_task_storage(newTask);
             update_project();
         }
-        build_home();//
-        print_storage();
+        build_home();
     }
 
     function makeStepsTitle(){
@@ -118,14 +115,6 @@ function edit_task_form(task){
         newstep.setAttribute('type', 'input');
         return newstep;
     }
-
-    // myForm.addEventListener("submit", (event) => {
-    //     event.preventDefault();
-    //     let newTask = Task();
-    //     add_task_storage(newTask);
-    //     task_to_project(newTask);
-    //     print_storage();
-    // })
 
     myModal.appendChild(myForm);
     document.querySelector("body").appendChild(myModal);
@@ -196,28 +185,17 @@ function make_task(){
     add.id = "add";
     add.addEventListener("click", (event) => {
         event.preventDefault();
-        // console.log(typeof myForm);
-        // document.getElementById("theForm").submit();
         makesTask();
         close_form();
         make_task();
-        // document.getElementById("steps").remove();
-        // document.getElementById("steps-title").remove();
-        // let steps = document.createElement('ul');
-        // steps.id = "steps";
-        // myForm.appendChild(steps);
-        
     })
     myForm.appendChild(add);
 
     let submit = document.createElement('button');
     submit.textContent = "Add";
     submit.id = "submit";
-    //submit.setAttribute('type', 'submit');
     submit.addEventListener("click", (event) => {
         event.preventDefault();
-        // console.log(typeof myForm);
-        // document.getElementById("theForm").submit();
         makesTask();
         close_form();
         add_project_storage();
@@ -236,15 +214,7 @@ function make_task(){
         let newTask = Task();
         task_to_project(newTask);
         add_task_storage(newTask);
-        print_storage();
     }
-    // myForm.addEventListener("submit", (event) => {
-    //     event.preventDefault();
-    //     let newTask = Task();
-    //     add_task_storage(newTask);
-    //     task_to_project(newTask);
-    //     print_storage();
-    // })
 
     myModal.appendChild(myForm);
     document.querySelector("body").appendChild(myModal);
@@ -310,7 +280,6 @@ function make_project (){
 
 function close_form(){
     let myModal = document.querySelector("dialog");
-    //console.log("closed!");
     myModal.remove();
 }
 
